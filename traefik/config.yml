@@ -1,4 +1,4 @@
-https:
+http:
   middlewares:
     security:
       headers:
@@ -11,7 +11,6 @@ https:
         stsIncludeSubdomains: true
         stsPreload: true
         forceSTSHeader: true
-
 tls:
   options:
     default:
@@ -19,10 +18,10 @@ tls:
       maxVersion: VersionTLS13
       cipherSuites:
         - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-        - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA256
+        - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
         - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
         - TLS_AES_256_GCM_SHA384
-        - TLS_CHACH20_POLY1305_SHA256
+        - TLS_CHACHA20_POLY1305_SHA256
   certificates:
     - certFile: /traefik/certs/fullchain.pem
       keyFile: /traefik/certs/privkey.pem
