@@ -48,7 +48,7 @@ services:
       - "traefik.http.routers.traefik.entrypoints=http"
       - "traefik.http.routers.traefik.rule=Host('traefik.afsoonstore.ir')"
       - "traefik.http.routers.middlewares=https-redirect"
-      - "traefik.http.middlewares.web-auth.basicauth.user:$$aprl$$sjfgsjgrwfw32fbvvw"
+      - "traefik.http.middlewares.web-auth.basicauth.user:user:$$apr1$$mwqqcew.$$CpuFz2CoBV/3ZZ6jc3E620"
       - "traefik.http.routers.traefik-secure.middlewares=https"
       - "traefik.http.routers.traefik-secure.rule=Host('traefik.afsoonstore.ir')"
       - "traefik.http.routers.traefik=secure.tls=true"
