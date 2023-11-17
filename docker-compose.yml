@@ -57,3 +57,23 @@ services:
       - "traefik.http.routers.traefik-secure.tls.options=default"
       - "traefik.http.routers.traefik-secure.tls.certresolver=mycert"
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+
+  nginx:
+    image: nginx:latest
+    container_name: docker-nginx
+    restart: unless-stopped
+    networks:
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web_net"
+      - "traefik.http.routers.nginx.entrypoints=http"
+      - "traefik.http.routers.nginx.rule=Host(`afsoonstore.ir`)"
+      - "traefik.http.routers.nginx.service=nginx-secure"
+      - "traefik.http.routers.nginx.middlewares=https-redirect"
+      - "traefik.http.routers.nginx-secure.entrypoints=https"
+      - "traefik.http.routers.nginx-secure.rule=Host(`afsoonstore.ir`)"
+      - "traefik.http.routers.nginx-secure.tls.options=default"
+      - "traefik.http.routers.nginx-secure.tls.certresolver=mycert"
+      - "traefik.http.routers.nginx-secure.service=nginx-secure"
+      - "traefik.http.services.nginx-secure.loadbalancer.server.port=80"
