@@ -33,10 +33,10 @@ services:
       - "--providers.file.filename=/traefik/config.yml"
     ports:
       - "80:80"
-      - "8080:8080"
+      - "443:443"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-acme:/acme
       - ./traefik:/traefik
     networks:
@@ -48,7 +48,6 @@ services:
       - "traefik.http.middlewares.web-auth.basicauth.users=user:$$apr1$$QpkypDvQ$$FjJgBGyX/By8agkOCUvDo."
       - "traefik.http.routers.traefik-secure.middlewares=web-auth"
       - "traefik.http.routers.api.rule=Host(`traefik.localhost`)"
-      - "traefik.http.routers.api.service=api@internal"
       - "traefik.http.routers.traefik-secure.entrypoints=https"
       - "traefik.http.routers.traefik-secure.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.traefik-secure.tls=true"
@@ -56,6 +55,7 @@ services:
       - "traefik.http.routers.traefik.middlewares=https-redirect"
       - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.traefik-secure.tls.certresolver=mycert"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
 
   whoami:
     image: traefik/whoami
